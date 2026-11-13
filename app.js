@@ -840,10 +840,82 @@
         for (const px of PIX) px.inited = false;
       });
 
+      if (typeof ResizeObserver !== "undefined") {
+        const ro = new ResizeObserver(() => {
+          resize();
+          for (const px of PIX) px.inited = false;
+        });
+        ro.observe(canvas);
+      }
+
       resize();
       requestAnimationFrame(frame);
     }
   }
+
+  // =========================================================================
+  // 3B. ADAPTAÇÃO DINÂMICA AO VIEWPORT DO DISPOSITIVO & SCROLL-SPY MOBILE
+  // =========================================================================
+  const siteHeader = document.getElementById("site-header");
+
+  function syncViewportMetrics() {
+    const vv = window.visualViewport;
+    const w = vv ? vv.width : window.innerWidth;
+    const h = vv ? vv.height : window.innerHeight;
+    root.style.setProperty("--app-vw", `${Math.round(w)}px`);
+    root.style.setProperty("--app-vh", `${Math.round(h)}px`);
+    if (siteHeader) {
+      const hh = Math.round(siteHeader.getBoundingClientRect().height);
+      root.style.setProperty("--header-h", `${hh}px`);
+    }
+  }
+
+  syncViewportMetrics();
+  window.addEventListener("resize", syncViewportMetrics, { passive: true });
+  window.addEventListener("orientationchange", () => setTimeout(syncViewportMetrics, 120), { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", syncViewportMetrics, { passive: true });
+  }
+  if (siteHeader && typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(syncViewportMetrics).observe(siteHeader);
+  }
+
+  // Scroll-Spy para destacar a seção visível na barra mobile e desktop
+  const trackedSectionIds = ["topo", "experiencia", "dados", "arquivo", "matriz", "contato"];
+  const navSectionLinks = document.querySelectorAll("[data-nav-section]");
+  const mobileRailTrack = document.querySelector(".mobile-rail-track");
+
+  function setActiveSectionNav(sectionId) {
+    navSectionLinks.forEach((link) => {
+      const isCurrent = link.getAttribute("data-nav-section") === sectionId;
+      link.classList.toggle("is-current", isCurrent);
+      if (isCurrent && mobileRailTrack && link.classList.contains("mobile-rail-link")) {
+        const trackRect = mobileRailTrack.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        const offset = linkRect.left - trackRect.left - trackRect.width / 2 + linkRect.width / 2;
+        mobileRailTrack.scrollBy({ left: offset, behavior: "smooth" });
+      }
+    });
+  }
+
+  function updateActiveSectionOnScroll() {
+    const headerOffset = (siteHeader ? siteHeader.getBoundingClientRect().height : 88) + 48;
+    let current = "topo";
+    for (const id of trackedSectionIds) {
+      const el = document.getElementById(id);
+      if (!el || el.classList.contains("is-dimmed-by-lens")) continue;
+      const top = el.getBoundingClientRect().top;
+      if (top <= headerOffset) {
+        current = id;
+      }
+    }
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24) {
+      current = "contato";
+    }
+    setActiveSectionNav(current);
+  }
+
+  window.addEventListener("scroll", updateActiveSectionOnScroll, { passive: true });
 
   // =========================================================================
   // 4. CONTROLE DO SELETOR DE LENTE TÉCNICA (VISÃO COMPLETA / BACK-END / DADOS)
@@ -880,6 +952,8 @@
       const shouldShow = domains.includes(lens);
       el.classList.toggle("is-dimmed-by-lens", !shouldShow);
     });
+
+    updateActiveSectionOnScroll();
   }
 
   lensButtons.forEach((btn) => {
@@ -889,7 +963,44 @@
   });
 
   // =========================================================================
-  // 5. CONTROLE DAS ABAS DE INSPEÇÃO DE CÓDIGO / ARQUITETURA / SQL
+  // 4B. FILTROS INTERATIVOS DE PROJETOS, TRILHA DE DADOS E MATRIZ TÉCNICA
+  // =========================================================================
+  function bindInteractiveFilter(btnAttr, itemSelector, matchAttr, gridContainerSelector) {
+    const buttons = document.querySelectorAll(`[${btnAttr}]`);
+    const items = document.querySelectorAll(itemSelector);
+    const gridContainer = gridContainerSelector ? document.querySelector(gridContainerSelector) : null;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const val = btn.getAttribute(btnAttr);
+        buttons.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-pressed", String(active));
+        });
+
+        items.forEach((item) => {
+          if (val === "all") {
+            item.classList.remove("is-filtered-out");
+          } else {
+            const itemVal = matchAttr === "id" ? item.id : item.getAttribute(matchAttr);
+            item.classList.toggle("is-filtered-out", itemVal !== val);
+          }
+        });
+
+        if (gridContainer) {
+          gridContainer.style.gridTemplateColumns = val === "all" ? "" : "1fr";
+        }
+      });
+    });
+  }
+
+  bindInteractiveFilter("data-case-filter", ".case-study", "id", null);
+  bindInteractiveFilter("data-curriculum-filter", ".curriculum-group", "data-curriculum-axis", null);
+  bindInteractiveFilter("data-matrix-filter", ".matrix-col", "data-matrix-axis", ".matrix-four-cols");
+
+  // =========================================================================
+  // 5. CONTROLE DAS ABAS DE INSPEÇÃO DE CÓDIGO + BOTÃO COPIAR TRECHO
   // =========================================================================
   const tabButtons = document.querySelectorAll("[data-tab-group]");
 
@@ -915,6 +1026,35 @@
         panel.hidden = !isTarget;
       });
     });
+  });
+
+  // Adiciona botão de cópia rápida nos cabeçalhos das janelas de código
+  document.querySelectorAll(".artifact-window").forEach((win) => {
+    const header = win.querySelector(".artifact-header");
+    const hasCode = win.querySelector(".code-view");
+    if (!header || !hasCode) return;
+
+    const copyCodeBtn = document.createElement("button");
+    copyCodeBtn.type = "button";
+    copyCodeBtn.className = "code-copy-btn";
+    copyCodeBtn.textContent = "Copiar código";
+    copyCodeBtn.setAttribute("aria-label", "Copiar código do painel visível");
+
+    copyCodeBtn.addEventListener("click", async () => {
+      const activePanel = win.querySelector(".artifact-panel.is-active") || win;
+      const codeEl = activePanel.querySelector(".code-view") || win.querySelector(".code-view");
+      if (!codeEl) return;
+      try {
+        await navigator.clipboard.writeText(codeEl.textContent.trim());
+        const prev = copyCodeBtn.textContent;
+        copyCodeBtn.textContent = "Copiado!";
+        setTimeout(() => {
+          copyCodeBtn.textContent = prev;
+        }, 1800);
+      } catch (_) {}
+    });
+
+    header.appendChild(copyCodeBtn);
   });
 
   // =========================================================================

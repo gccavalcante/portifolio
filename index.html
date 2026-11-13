@@ -13,8 +13,8 @@
 <body>
   <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo principal</a>
 
-  <!-- CABEÇALHO ESTRUTURAL COM GLASS LIGHT TOGGLE -->
-  <header class="site-header">
+  <!-- CABEÇALHO ESTRUTURAL COM GLASS LIGHT TOGGLE E BARRA MOBILE -->
+  <header class="site-header" id="site-header">
     <div class="shell header-grid">
       <div class="brand-cell">
         <a href="#topo" class="brand-name">Gabriel Chaves</a>
@@ -24,11 +24,16 @@
         <span class="meta-inline">Rio de Janeiro, RJ · Inglês C2 (Fluente) · Remoto / Híbrido / Presencial</span>
       </div>
       <nav class="nav-cell" aria-label="Navegação principal">
-        <a href="#experiencia">Experiência &amp; Casos</a>
-        <a href="#dados">Dados &amp; BI</a>
-        <a href="#arquivo">Repositórios</a>
-        <a href="#matriz">Stack</a>
-        <a href="./curriculo-gabriel-chaves.pdf" download="Curriculo-Gabriel-Chaves.pdf" class="nav-cv-link">Baixar CV (PDF)</a>
+        <div class="nav-links-desktop">
+          <a href="#experiencia" data-nav-section="experiencia">Experiência &amp; Casos</a>
+          <a href="#dados" data-nav-section="dados">Dados &amp; BI</a>
+          <a href="#arquivo" data-nav-section="arquivo">Repositórios</a>
+          <a href="#matriz" data-nav-section="matriz">Stack</a>
+        </div>
+        <a href="./curriculo-gabriel-chaves.pdf" download="Curriculo-Gabriel-Chaves.pdf" class="nav-cv-link">
+          <span class="cv-label-full">Baixar CV (PDF)</span>
+          <span class="cv-label-short">CV · PDF</span>
+        </a>
         <div class="header-toggle-slot">
           <canvas
             id="glass-toggle-header"
@@ -43,11 +48,46 @@
         </div>
       </nav>
     </div>
+
+    <!-- BARRA DE NAVEGAÇÃO RÁPIDA MOBILE (SCROLL-SPY DINÂMICO) -->
+    <nav class="mobile-section-rail" aria-label="Navegação rápida por seções">
+      <div class="shell mobile-rail-track">
+        <a href="#topo" class="mobile-rail-link is-current" data-nav-section="topo">00 · Início</a>
+        <a href="#experiencia" class="mobile-rail-link" data-nav-section="experiencia">01 · Casos (3)</a>
+        <a href="#dados" class="mobile-rail-link" data-nav-section="dados">02 · Dados &amp; BI</a>
+        <a href="#arquivo" class="mobile-rail-link" data-nav-section="arquivo">03 · Repositórios</a>
+        <a href="#matriz" class="mobile-rail-link" data-nav-section="matriz">04 · Stack</a>
+        <a href="#contato" class="mobile-rail-link" data-nav-section="contato">05 · Contato</a>
+      </div>
+    </nav>
   </header>
 
   <main id="conteudo-principal">
+    <!-- SELETOR DE LENTE TÉCNICA (NO TOPO PARA ADAPTAÇÃO IMEDIATA AO ABRIR O SITE) -->
+    <section id="topo" class="lens-bar-section" aria-label="Filtro de foco por área de atuação">
+      <div class="shell lens-bar-grid">
+        <div class="lens-label-col">
+          <span class="meta-code">SELECIONE A LENTE DE LEITURA PARA A VAGA:</span>
+        </div>
+        <div class="lens-controls" role="group" aria-label="Filtrar portfólio por foco">
+          <button type="button" class="lens-btn is-active" data-lens-target="all" aria-pressed="true">
+            <span class="lens-text-desktop">01 · Visão Completa (Back-end + Dados)</span>
+            <span class="lens-text-mobile">01 · Completa</span>
+          </button>
+          <button type="button" class="lens-btn" data-lens-target="backend" aria-pressed="false">
+            <span class="lens-text-desktop">02 · Engenharia de Software (Back-end / Full-Stack)</span>
+            <span class="lens-text-mobile">02 · Back-end</span>
+          </button>
+          <button type="button" class="lens-btn" data-lens-target="data" aria-pressed="false">
+            <span class="lens-text-desktop">03 · Analista de Dados, SQL &amp; Power BI</span>
+            <span class="lens-text-mobile">03 · Dados &amp; BI</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- HERO ASSIMÉTRICO (7 / 5 COLUNAS) -->
-    <section id="topo" class="hero-section">
+    <section class="hero-section">
       <div class="shell hero-grid">
         <div class="hero-main">
           <div class="direction-badge-line">
@@ -67,8 +107,10 @@
           <div class="hero-actions">
             <a href="#experiencia" class="btn-primary">Inspecionar projetos e arquitetura</a>
             <a href="./curriculo-gabriel-chaves.pdf" download="Curriculo-Gabriel-Chaves.pdf" class="btn-secondary">Baixar currículo em PDF</a>
-            <a href="https://github.com/gccavalcante" target="_blank" rel="noopener noreferrer" class="text-action-link">github.com/gccavalcante ↗</a>
-            <a href="https://www.linkedin.com/in/gabriel-chaves-/" target="_blank" rel="noopener noreferrer" class="text-action-link">LinkedIn ↗</a>
+            <div class="hero-Quick-links">
+              <a href="https://github.com/gccavalcante" target="_blank" rel="noopener noreferrer" class="text-action-link">github.com/gccavalcante ↗</a>
+              <a href="https://www.linkedin.com/in/gabriel-chaves-/" target="_blank" rel="noopener noreferrer" class="text-action-link">LinkedIn ↗</a>
+            </div>
           </div>
         </div>
 
@@ -94,36 +136,16 @@
               <dt>Front-end &amp; UI</dt>
               <dd>React 19, Vite, React Router v7, Angular, CSS Tokens</dd>
             </div>
-            <div class="dossier-row">
+            <div class="dossier-row dossier-row-wide">
               <dt>Idiomas</dt>
               <dd>Português (Nativo) · <strong>Inglês (Fluente, C2)</strong> · Espanhol (Interm.)</dd>
             </div>
-            <div class="dossier-row">
+            <div class="dossier-row dossier-row-wide">
               <dt>Contato direto</dt>
-              <dd><a href="mailto:gabrielccavalcante@gmail.com">gabrielccavalcante@gmail.com</a> · (21) 99218-1098</dd>
+              <dd><a href="mailto:gabrielccavalcante@gmail.com">gabrielccavalcante@gmail.com</a> · <a href="tel:+5521992181098">(21) 99218-1098</a></dd>
             </div>
           </dl>
         </aside>
-      </div>
-    </section>
-
-    <!-- SELETOR DE LENTE TÉCNICA (ELEMENTO EXCLUSIVO DO PORTFÓLIO) -->
-    <section class="lens-bar-section" aria-label="Filtro de foco por área de atuação">
-      <div class="shell lens-bar-grid">
-        <div class="lens-label-col">
-          <span class="meta-code">SELECIONE A LENTE DE LEITURA PARA A VAGA:</span>
-        </div>
-        <div class="lens-controls" role="group" aria-label="Filtrar portfólio por foco">
-          <button type="button" class="lens-btn is-active" data-lens-target="all" aria-pressed="true">
-            01 · Visão Completa (Back-end + Dados)
-          </button>
-          <button type="button" class="lens-btn" data-lens-target="backend" aria-pressed="false">
-            02 · Engenharia de Software (Back-end / Full-Stack)
-          </button>
-          <button type="button" class="lens-btn" data-lens-target="data" aria-pressed="false">
-            03 · Analista de Dados, SQL &amp; Power BI
-          </button>
-        </div>
       </div>
     </section>
 
@@ -142,8 +164,19 @@
           </div>
         </div>
 
+        <!-- NAVEGADOR INTERATIVO DE ESTUDOS DE CASO -->
+        <div class="interactive-subbar" role="group" aria-label="Selecionar estudo de caso">
+          <span class="meta-code subbar-label">FILTRAR PROJETO:</span>
+          <div class="subbar-buttons">
+            <button type="button" class="subbar-btn is-active" data-case-filter="all" aria-pressed="true">Todos (3)</button>
+            <button type="button" class="subbar-btn" data-case-filter="case-01" aria-pressed="false">01 · Editais.GOV (Python/Django)</button>
+            <button type="button" class="subbar-btn" data-case-filter="case-02" aria-pressed="false">02 · SIRH API (TS/Node/SQL)</button>
+            <button type="button" class="subbar-btn" data-case-filter="case-03" aria-pressed="false">03 · NexusTech (React 19)</button>
+          </div>
+        </div>
+
         <!-- CASO 01: EDITAIS.GOV -->
-        <article class="case-study" data-domain="backend data">
+        <article class="case-study" id="case-01" data-domain="backend data">
           <div class="case-meta-strip">
             <span class="case-index">CASO 01 // PRODUÇÃO GOVTECH</span>
             <span class="case-org">Aponti / Softex / MCTI · Prefeitura de Niterói/RJ</span>
@@ -266,7 +299,7 @@ def organizar_diretorio_edital(sender, instance, created, **kwargs):
         </article>
 
         <!-- CASO 02: SIRH API RESTFUL -->
-        <article class="case-study" data-domain="backend data">
+        <article class="case-study" id="case-02" data-domain="backend data">
           <div class="case-meta-strip">
             <span class="case-index">CASO 02 // ARQUITETURA BACK-END &amp; SQL</span>
             <span class="case-org">Projeto Final — Bolsa Futuro Digital (Aponti / Softex / MCTI)</span>
@@ -365,7 +398,7 @@ CREATE TABLE IF NOT EXISTS contracts (
         </article>
 
         <!-- CASO 03: NEXUSTECH STORE -->
-        <article class="case-study" data-domain="backend">
+        <article class="case-study" id="case-03" data-domain="backend">
           <div class="case-meta-strip">
             <span class="case-index">CASO 03 // ENGENHARIA FRONT-END &amp; INTEGRAÇÃO DE APIS</span>
             <span class="case-org">Projeto Acadêmico — 2º Período ADS / IFES</span>
@@ -531,8 +564,17 @@ RETURN
                 Detalhamento transparente dos módulos práticos da minha formação em Dados, cobrindo desde a extração e tratamento (ETL) até modelagem dimensional, estatística e governança no Power BI Service.
               </p>
 
+              <div class="interactive-subbar interactive-subbar-compact" role="group" aria-label="Filtrar eixos da formação em dados">
+                <div class="subbar-buttons">
+                  <button type="button" class="subbar-btn is-active" data-curriculum-filter="all" aria-pressed="true">Todos (22 módulos)</button>
+                  <button type="button" class="subbar-btn" data-curriculum-filter="1" aria-pressed="false">1 · SQL &amp; ETL</button>
+                  <button type="button" class="subbar-btn" data-curriculum-filter="2" aria-pressed="false">2 · DAX &amp; Estatística</button>
+                  <button type="button" class="subbar-btn" data-curriculum-filter="3" aria-pressed="false">3 · Dataviz &amp; PL-300</button>
+                </div>
+              </div>
+
               <div class="curriculum-groups">
-                <div class="curriculum-group">
+                <div class="curriculum-group" data-curriculum-axis="1">
                   <div class="curriculum-group-head">
                     <h4>1. Engenharia de Consulta, Tratamento (ETL) &amp; Modelagem</h4>
                     <span class="status-tag status-active">Em prática ativa</span>
@@ -545,7 +587,7 @@ RETURN
                   </ul>
                 </div>
 
-                <div class="curriculum-group">
+                <div class="curriculum-group" data-curriculum-axis="2">
                   <div class="curriculum-group-head">
                     <h4>2. Cálculo Analítico, DAX &amp; Estatística</h4>
                     <span class="status-tag status-active">Em prática ativa</span>
@@ -557,7 +599,7 @@ RETURN
                   </ul>
                 </div>
 
-                <div class="curriculum-group">
+                <div class="curriculum-group" data-curriculum-axis="3">
                   <div class="curriculum-group-head">
                     <h4>3. Visualização, Governança &amp; Certificação</h4>
                     <span class="status-tag status-progress">Trilha de consolidação</span>
@@ -603,56 +645,56 @@ RETURN
             </thead>
             <tbody>
               <tr data-domain="backend data">
-                <td class="num-cell">2026</td>
-                <td><strong>Editais.GOV</strong> (Prefeitura de Niterói)</td>
-                <td>Back-end Institucional, Automação &amp; Busca Indexada</td>
-                <td>Python, Django, Wagtail CMS, Signals, Q Objects, Docker</td>
-                <td><span class="repo-badge">Residência TIC (Softex/MCTI)</span></td>
+                <td class="num-cell" data-label="Período">2026</td>
+                <td data-label="Projeto / Sistema"><strong>Editais.GOV</strong> (Prefeitura de Niterói)</td>
+                <td data-label="Foco Técnico">Back-end Institucional, Automação &amp; Busca Indexada</td>
+                <td data-label="Stack Principal">Python, Django, Wagtail CMS, Signals, Q Objects, Docker</td>
+                <td data-label="Verificação"><span class="repo-badge">Residência TIC (Softex/MCTI)</span></td>
               </tr>
               <tr data-domain="backend">
-                <td class="num-cell">2026</td>
-                <td><strong>NexusTech Store (tads-store)</strong></td>
-                <td>Single Page Application, Integração Paralela &amp; Design System</td>
-                <td>React 19, Vite, React Router v7, Context API, CSS Tokens</td>
-                <td>
+                <td class="num-cell" data-label="Período">2026</td>
+                <td data-label="Projeto / Sistema"><strong>NexusTech Store (tads-store)</strong></td>
+                <td data-label="Foco Técnico">Single Page Application, Integração Paralela &amp; Design System</td>
+                <td data-label="Stack Principal">React 19, Vite, React Router v7, Context API, CSS Tokens</td>
+                <td data-label="Verificação">
                   <a href="https://tads-store-gccavalcante.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a> ·
                   <a href="https://github.com/gccavalcante/tads-store" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 </td>
               </tr>
               <tr data-domain="backend data">
-                <td class="num-cell">2025</td>
-                <td><strong>SIRH API RESTful (projeto-integrador)</strong></td>
-                <td>Arquitetura Limpa, Autenticação JWT &amp; Modelagem SQL</td>
-                <td>TypeScript, Node.js, Express, MySQL, Zod, Jest</td>
-                <td>
+                <td class="num-cell" data-label="Período">2025</td>
+                <td data-label="Projeto / Sistema"><strong>SIRH API RESTful (projeto-integrador)</strong></td>
+                <td data-label="Foco Técnico">Arquitetura Limpa, Autenticação JWT &amp; Modelagem SQL</td>
+                <td data-label="Stack Principal">TypeScript, Node.js, Express, MySQL, Zod, Jest</td>
+                <td data-label="Verificação">
                   <a href="https://github.com/gccavalcante/projeto-integrador" target="_blank" rel="noopener noreferrer">API Repo ↗</a> ·
                   <a href="https://github.com/gccavalcante/projeto-integrador/blob/main/gestaorh.sql" target="_blank" rel="noopener noreferrer">SQL ↗</a>
                 </td>
               </tr>
               <tr data-domain="backend">
-                <td class="num-cell">2025</td>
-                <td><strong>SIRH Front-end (projeto-integrador-front)</strong></td>
-                <td>Interface Cliente para Gestão de Contratos e Serviços</td>
-                <td>TypeScript, JavaScript, Integração REST</td>
-                <td>
+                <td class="num-cell" data-label="Período">2025</td>
+                <td data-label="Projeto / Sistema"><strong>SIRH Front-end (projeto-integrador-front)</strong></td>
+                <td data-label="Foco Técnico">Interface Cliente para Gestão de Contratos e Serviços</td>
+                <td data-label="Stack Principal">TypeScript, JavaScript, Integração REST</td>
+                <td data-label="Verificação">
                   <a href="https://github.com/gccavalcante/projeto-integrador-front" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 </td>
               </tr>
               <tr data-domain="data backend">
-                <td class="num-cell">2025</td>
-                <td><strong>Modelagem &amp; Consultas SQL (Bolsa Futuro Digital)</strong></td>
-                <td>Schemas Relacionais DDL/DML, Constraints, JOINs &amp; Agregações</td>
-                <td>PostgreSQL, MySQL, SQLite, Modelagem de Dados</td>
-                <td>
+                <td class="num-cell" data-label="Período">2025</td>
+                <td data-label="Projeto / Sistema"><strong>Modelagem &amp; Consultas SQL (Bolsa Futuro Digital)</strong></td>
+                <td data-label="Foco Técnico">Schemas Relacionais DDL/DML, Constraints, JOINs &amp; Agregações</td>
+                <td data-label="Stack Principal">PostgreSQL, MySQL, SQLite, Modelagem de Dados</td>
+                <td data-label="Verificação">
                   <a href="https://github.com/gccavalcante/Bolsa-Futuro-Digital" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 </td>
               </tr>
               <tr data-domain="backend">
-                <td class="num-cell">2025</td>
-                <td><strong>Algoritmos &amp; Back-end Node.js (exerciciosjs)</strong></td>
-                <td>Estruturas de Dados, Lógica de Programação e Rotinas Assíncronas</td>
-                <td>JavaScript (ES6+), Node.js</td>
-                <td>
+                <td class="num-cell" data-label="Período">2025</td>
+                <td data-label="Projeto / Sistema"><strong>Algoritmos &amp; Back-end Node.js (exerciciosjs)</strong></td>
+                <td data-label="Foco Técnico">Estruturas de Dados, Lógica de Programação e Rotinas Assíncronas</td>
+                <td data-label="Stack Principal">JavaScript (ES6+), Node.js</td>
+                <td data-label="Verificação">
                   <a href="https://github.com/gccavalcante/exerciciosjs" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 </td>
               </tr>
@@ -674,8 +716,19 @@ RETURN
           </div>
         </div>
 
+        <div class="interactive-subbar" role="group" aria-label="Selecionar eixo da matriz de competências">
+          <span class="meta-code subbar-label">FILTRAR EIXO:</span>
+          <div class="subbar-buttons">
+            <button type="button" class="subbar-btn is-active" data-matrix-filter="all" aria-pressed="true">Todos (4 Eixos)</button>
+            <button type="button" class="subbar-btn" data-matrix-filter="1" aria-pressed="false">01 · Back-end</button>
+            <button type="button" class="subbar-btn" data-matrix-filter="2" aria-pressed="false">02 · Dados &amp; BI</button>
+            <button type="button" class="subbar-btn" data-matrix-filter="3" aria-pressed="false">03 · Front-end</button>
+            <button type="button" class="subbar-btn" data-matrix-filter="4" aria-pressed="false">04 · Infra &amp; Idiomas</button>
+          </div>
+        </div>
+
         <div class="matrix-four-cols">
-          <div class="matrix-col">
+          <div class="matrix-col" data-matrix-axis="1">
             <span class="matrix-index">01 // BACK-END &amp; ARQUITETURA</span>
             <h3 class="matrix-heading">Engenharia de Servidor</h3>
             <ul class="matrix-list">
@@ -686,7 +739,7 @@ RETURN
             </ul>
           </div>
 
-          <div class="matrix-col">
+          <div class="matrix-col" data-matrix-axis="2">
             <span class="matrix-index">02 // DADOS, BANCOS &amp; BI</span>
             <h3 class="matrix-heading">Análise &amp; Persistência</h3>
             <ul class="matrix-list">
@@ -697,7 +750,7 @@ RETURN
             </ul>
           </div>
 
-          <div class="matrix-col">
+          <div class="matrix-col" data-matrix-axis="3">
             <span class="matrix-index">03 // FRONT-END &amp; INTERFACES</span>
             <h3 class="matrix-heading">Aplicações Web</h3>
             <ul class="matrix-list">
@@ -708,7 +761,7 @@ RETURN
             </ul>
           </div>
 
-          <div class="matrix-col">
+          <div class="matrix-col" data-matrix-axis="4">
             <span class="matrix-index">04 // INFRA, FORMAÇÃO &amp; IDIOMAS</span>
             <h3 class="matrix-heading">Ambiente &amp; Comunicação</h3>
             <ul class="matrix-list">

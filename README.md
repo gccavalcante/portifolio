@@ -1,6 +1,6 @@
 # Portfólio Técnico — Gabriel Chaves (`gccavalcante`)
 
-🔗 **Site em Produção:** [https://gabrielchavesdev.vercel.app](https://gabrielchavesdev.vercel.app)
+**Site em Produção:** [https://gccavalcante.vercel.app](https://gccavalcante.vercel.app) (espelho: [https://gabrielchavesdev.vercel.app](https://gabrielchavesdev.vercel.app))
 
 Portfólio profissional focado em **Engenharia de Software (Back-end & Full-Stack)** e **Análise de Dados / Business Intelligence (SQL, Python, Power BI)**.
 
