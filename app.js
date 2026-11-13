@@ -462,15 +462,9 @@
         // Superfície externa idêntica ao fundo do cabeçalho (#0E0E10 dark <-> #F5F4F0 light)
         vec3 dBg = vec3(14.0/255.0, 14.0/255.0, 16.0/255.0);
         vec3 lBg = vec3(245.0/255.0, 244.0/255.0, 240.0/255.0);
-        vec3 col = mix(dBg, lBg, th);
+        vec3 baseBg = mix(dBg, lBg, th);
+        vec3 col = baseBg;
         float st = sdRB(p - uC, uTH, uTR);
-        float sh = 1. - smoothstep(-10., 34., sdRB(p - uC - vec2(0., 14.), uTH, uTR));
-        col *= 1. - sh * mix(0.5, 0.17, th);
-        float sh2 = 1. - smoothstep(-2., 4., sdRB(p - uC - vec2(0., 1.5), uTH, uTR));
-        col *= 1. - sh2 * mix(0.3, 0.08, th);
-        float ls = max(ledSd(p), 0.);
-        float spill = (exp(-ls/18.)*0.5 + exp(-ls/85.)*0.34) * uLed;
-        col = glow(col, spill*0.6);
         if (st < 2.) {
           vec3 tc = floorScene(p, 0., vec2(0.));
           float sk0 = sdRB(p - uK - vec2(0., 7. + uLift*5.), uKH, uKR);
@@ -516,8 +510,10 @@
         float lm = 1. - smoothstep(-0.6, 0.6, lsd);
         vec3 lc = mix(uLight * 1.05, mix(uLight, vec3(1.0), 0.65), smoothstep(-0.2, -1.4, lsd));
         col = mix(col, lc * (0.8 + 0.35 * uLed), lm);
-        col = glow(col, exp(-max(lsd, 0.) / 4.5) * 0.55 * uLed * (1. - lm));
-        col += (hash(gl_FragCoord.xy + fract(uTime) * 91.7) - 0.5) * 0.014;
+        float ledHaloMask = smoothstep(20.0, 0.0, max(lsd, 0.)) * smoothstep(28.0, 2.0, st);
+        col = glow(col, exp(-max(lsd, 0.) / 4.5) * 0.55 * uLed * (1. - lm) * ledHaloMask);
+        float insideMask = smoothstep(0.6, -0.6, min(st, sk));
+        col += (hash(gl_FragCoord.xy + fract(uTime) * 91.7) - 0.5) * 0.014 * insideMask;
         o = vec4(clamp(col, 0., 1.), 1.);
       }`;
 
