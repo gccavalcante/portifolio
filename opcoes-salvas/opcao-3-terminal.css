@@ -1,0 +1,32 @@
+/* OPÇÃO 3 — DARK TERMINAL DE PRECISÃO (Tema Escuro Principal) */
+html[data-direction="terminal"] {
+  color-scheme: dark;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --cor-fundo: #0E0E10;
+  --cor-superficie: #151518;
+  --cor-superficie-forte: #1D1D22;
+  --cor-painel-codigo: #09090B;
+  --cor-painel-texto: #ECECEF;
+  --cor-painel-borda: #26262B;
+
+  --cor-texto: #ECECEF;
+  --cor-suave: #A0A0AB;
+  --cor-acento: #D97706;
+  --cor-acento-hover: #B45309;
+  --cor-acento-tinta: #0E0E10;
+  --cor-borda: #26262B;
+  --cor-borda-forte: #D97706;
+
+  --cor-status-ativo-bg: #2E2112;
+  --cor-status-ativo-txt: #FBBF24;
+  --cor-status-prog-bg: #1F1F24;
+  --cor-status-prog-txt: #C4C4CC;
+
+  --raio-curto: 4px;
+  --raio-medio: 6px;
+  --peso-display: 800;
+  --tracking-display: -0.025em;
+}

@@ -1,0 +1,33 @@
+/* OPÇÃO 1 — EDITORIAL SUÍÇO & ENGENHARIA (Tema Claro Principal) */
+:root,
+html[data-direction="editorial"] {
+  color-scheme: light;
+  --font-display: "Syne", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --cor-fundo: #F5F4F0;
+  --cor-superficie: #ECEAE3;
+  --cor-superficie-forte: #E3E0D6;
+  --cor-painel-codigo: #161618;
+  --cor-painel-texto: #ECECEF;
+  --cor-painel-borda: #2C2C30;
+
+  --cor-texto: #141413;
+  --cor-suave: #52514D;
+  --cor-acento: #1D4ED8;
+  --cor-acento-hover: #1E40AF;
+  --cor-acento-tinta: #FFFFFF;
+  --cor-borda: #D5D2C8;
+  --cor-borda-forte: #141413;
+
+  --cor-status-ativo-bg: #DCE6FD;
+  --cor-status-ativo-txt: #1E3A8A;
+  --cor-status-prog-bg: #E5E3DC;
+  --cor-status-prog-txt: #3F3E3A;
+
+  --raio-curto: 4px;
+  --raio-medio: 6px;
+  --peso-display: 700;
+  --tracking-display: -0.025em;
+}

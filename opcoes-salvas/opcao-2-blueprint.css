@@ -1,0 +1,32 @@
+/* OPÇÃO 2 — PAPEL TÉCNICO & BLUEPRINT DE DADOS (Salva para uso futuro) */
+html[data-direction="blueprint"] {
+  color-scheme: light;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --cor-fundo: #FAF8F5;
+  --cor-superficie: #F1EFEA;
+  --cor-superficie-forte: #E6E3DC;
+  --cor-painel-codigo: #131917;
+  --cor-painel-texto: #E7F0EC;
+  --cor-painel-borda: #26332E;
+
+  --cor-texto: #111312;
+  --cor-suave: #454C48;
+  --cor-acento: #047857;
+  --cor-acento-hover: #065F46;
+  --cor-acento-tinta: #FFFFFF;
+  --cor-borda: #CFCBC0;
+  --cor-borda-forte: #047857;
+
+  --cor-status-ativo-bg: #D1FAE5;
+  --cor-status-ativo-txt: #065F46;
+  --cor-status-prog-bg: #E6E3DC;
+  --cor-status-prog-txt: #37413D;
+
+  --raio-curto: 0px;
+  --raio-medio: 0px;
+  --peso-display: 700;
+  --tracking-display: -0.025em;
+}
